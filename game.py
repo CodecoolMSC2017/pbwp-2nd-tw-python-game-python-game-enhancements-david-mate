@@ -1,17 +1,17 @@
 import random
 board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 board2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-win_commbinations = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
-def check_board():      
-    for actual_win_comb in win_commbinations:
-        if board[actual_win_comb[0]] == "x" and board[actual_win_comb[1]] == "x" and board[actual_win_comb[2]] == "x":
-            print(usrOne, "! You are the winner!")
-            return True
 
-        elif board[actual_win_comb[0]] == "o" and board[actual_win_comb[1]] == "o" and board[actual_win_comb[2]] == "o":
-            print(usrTwo, " You are the winner!")
-            return True
-    return False
+def check_board(s):
+    return board[6] == s and board[7] == s and board[8] == s or \
+        board[3] == s and board[4] == s and board[5] == s or \
+        board[0] == s and board[1] == s and board[2] == s or \
+        board[6] == s and board[3] == s and board[0] == s or \
+        board[7] == s and board[4] == s and board[1] == s or \
+        board[8] == s and board[5] == s and board[2] == s or \
+        board[6] == s and board[4] == s and board[2] == s or \
+        board[8] == s and board[4] == s and board[0] == s
+
 def help():
     print('TIC TAC TOE HELP')
     print('|-----------|')
@@ -101,14 +101,7 @@ while True:
                 board[first - 1] = 'X'
                 a += 1
                 show()
-                if board[6] == "X" and board[7] == "X" and board[8] == "X" or \
-                        board[3] == "X" and board[4] == "X" and board[5] == "X" or \
-                        board[0] == "X" and board[1] == "X" and board[2] == "X" or \
-                        board[6] == "X" and board[3] == "X" and board[0] == "X" or \
-                        board[7] == "X" and board[4] == "X" and board[1] == "X" or \
-                        board[8] == "X" and board[5] == "X" and board[2] == "X" or \
-                        board[6] == "X" and board[4] == "X" and board[2] == "X" or \
-                        board[8] == "X" and board[4] == "X" and board[0] == "X":
+                if check_board("X"):
                     show()
                     b += 1
                     x += 1
@@ -150,14 +143,7 @@ while True:
                 board[second - 1] = 'O'
                 a -= 1
                 show()
-                if board[6] == "O" and board[7] == "O" and board[8] == "O" or \
-                        board[3] == "O" and board[4] == "O" and board[5] == "O" or \
-                        board[0] == "O" and board[1] == "O" and board[2] == "O" or \
-                        board[6] == "O" and board[3] == "O" and board[0] == "O" or \
-                        board[7] == "O" and board[4] == "O" and board[1] == "O" or \
-                        board[8] == "O" and board[5] == "O" and board[2] == "O" or \
-                        board[6] == "O" and board[4] == "O" and board[2] == "O" or \
-                        board[8] == "O" and board[4] == "O" and board[0] == "O":
+                if check_board("O"):
                     show()
                     b += 1
                     o += 1
