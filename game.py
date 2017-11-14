@@ -2,6 +2,7 @@ import random
 board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 board2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+
 def check_board(s):
     return board[6] == s and board[7] == s and board[8] == s or \
         board[3] == s and board[4] == s and board[5] == s or \
@@ -11,6 +12,7 @@ def check_board(s):
         board[8] == s and board[5] == s and board[2] == s or \
         board[6] == s and board[4] == s and board[2] == s or \
         board[8] == s and board[4] == s and board[0] == s
+
 
 def help():
     print('TIC TAC TOE HELP')
@@ -91,12 +93,12 @@ while True:
                 continue
             try:
                 first = int(first)
-                if not first in range(0, 10):
-                    print('Cant choose that number!')
-                    continue
+                
             except:
                 print("thats not a number!")
                 continue
+            else:
+                print("this spot is taken")            
             if board[first - 1] != 'X' and board[first - 1] != 'O':
                 board[first - 1] = 'X'
                 a += 1
@@ -115,8 +117,6 @@ while True:
                     x = o
                     o = temp2
                     break
-            else:
-                print("this spot is taken!")
         if xwin == True:
             break
             show()
@@ -133,16 +133,15 @@ while True:
                 continue
             try:
                 second = int(second)
-                if not second in range(0, 10):
-                    print('Cant choose that number!')
-                    continue
             except:
                 print("thats not a number!")
                 continue
-            if board[second - 1] != 'X' and board[first - 1] != 'O':
+            if board[second - 1] != 'X' and board[second - 1] != 'O':
                 board[second - 1] = 'O'
                 a -= 1
                 show()
+            else:
+                print("this spot is taken!")
                 if check_board("O"):
                     show()
                     b += 1
@@ -157,8 +156,6 @@ while True:
                     o = x
                     o = temp2
                     break
-            else:
-                print("this spot is taken!")
         if owin == True:
             break
             show()
