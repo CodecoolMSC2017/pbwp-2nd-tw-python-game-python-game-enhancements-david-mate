@@ -1,7 +1,42 @@
 import random
+def header():
+    
+    
+    print("               _____ _           _____               _____     _                   ")
+    print("              |_   _(_)         |_   _|             |_   _|   | |                  ")
+    print("                | |  _  ___ ______| | __ _  ___ ______| | __ _| |__   ___          ")
+    print("                | | | |/ __|______| |/ _` |/ __|______| |/ _` | '_ \ / _ \         ")
+    print("                | | | | (__       | | (_| | (__       | | (_| | | | | (_) |       ") 
+    print("                \_/ |_|\___|      \_/\__,_|\___|      \_/\__,_|_| |_|\___/        ") 
+    print("                                                                                   ") 
+    print("                                                                                   ") 
+    print("                 _____                _           _   _                             ") 
+    print("                /  __ \              | |         | | | |                            ") 
+    print("                | /  \/_ __ ___  __ _| |_ ___  __| | | |__  _   _                   ") 
+    print("                | |   | '__/ _ \/ _` | __/ _ \/ _` | | '_ \| | | |                  ")
+    print("                | \__/| | |  __| (_| | ||  __| (_| | | |_) | |_| |                   ")
+    print("                \____|_|  \___|\__,_|\__\___|\__,_| |_.__/ \__, |                   ")
+    print("                                                            __/ |                   ")
+    print("                                                            |___/                    ")
+    print("                ______            _     _                   _  ___  ___      _       ")
+    print("                |  _  \          (_)   | |                 | | |  \/  |     | |      ")
+    print("                | | | |__ ___   ___  __| |   __ _ _ __   __| | | .  . | __ _| |_ ___ ")
+    print("                | | | / _` \ \ / | |/ _` |  / _` | '_ \ / _` | | |\/| |/ _` | __/ _ \ ")
+    print("                | |/ | (_| |\ V /| | (_| | | (_| | | | | (_| | | |  | | (_| | ||  __/ ") 
+    print("                |___/ \__,_| \_/ |_|\__,_|  \__,_|_| |_|\__,_| \_|  |_/\__,_|\__\___| ")
+                                                                     
+                                                                     
+
+            
+            
+                                                                     
+                                                                                                                   
+                                                                                                                                                 
+                                                                                                                                                 
 
 
-def check_board(board,s):
+
+def check_board(board, s):
     return board[6] == s and board[7] == s and board[8] == s or \
         board[3] == s and board[4] == s and board[5] == s or \
         board[0] == s and board[1] == s and board[2] == s or \
@@ -60,9 +95,12 @@ def choose_name():
             ply2 = temp
             print('\n' + ply1 + ' goes first!')
     print('\n' + ply1 + '  vs  ' + ply2)
-    return [ply1,ply2]
+    return [ply1, ply2]
+
+
 def game_on():
-    p1,p2 = choose_name()
+    header()
+    p1, p2 = choose_name()
     x = 0
     o = 0
     t = 0
@@ -92,18 +130,19 @@ def game_on():
                 except:
                     print("thats not a number!")
                     continue
-                           
+
                 if board[first - 1] != 'X' and board[first - 1] != 'O':
                     board[first - 1] = 'X'
                     a += 1
                     show(board)
-                    if check_board(board,"X"):
+                    if check_board(board, "X"):
                         show(board)
                         b += 1
                         x += 1
                         print("\nX wins")
                         xwin = True
-                        print(p1 + " wins:%d " % (x) + '\n' + p2 + " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
+                        print(p1 + " wins:%d " % (x) + '\n' + p2 +
+                              " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
                         temp = p1
                         p1 = p2
                         p2 = temp
@@ -112,14 +151,15 @@ def game_on():
                         o = temp2
                         break
                 else:
-                    print("this spot is taken")         
+                    print("this spot is taken")
             if xwin == True:
                 break
                 show(board)
             if " " not in board:
                 t += 1
                 print("\nTie")
-                print(p1 + " wins:%d " % (x) + '\n' + p2 + " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
+                print(p1 + " wins:%d " % (x) + '\n' + p2 + " wins:%d " %
+                      (o) + '\n' + "Tie:%d" % (t))
                 break
             while a == 1:
                 print("\nSecond player select a spot: ")
@@ -136,31 +176,35 @@ def game_on():
                     board[second - 1] = 'O'
                     a -= 1
                     show(board)
-                else:
-                    print("this spot is taken!")
-                    if check_board(board,"O"):
+                    if check_board(board, "O"):
                         show(board)
                         b += 1
                         o += 1
                         print("\nO wins")
-                        print(p1 + " wins:%d " % (x) + '\n' + p2 + " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
+                        print(p1 + " wins:%d " % (x) + '\n' + p2 +
+                              " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
                         owin = True
                         temp = p1
                         p1 = p2
                         p2 = temp
                         temp2 = o
                         o = x
-                        o = temp2
+                        x = temp2
                         break
+                else:
+                    print("this spot is taken!")
             if owin == True:
                 break
                 show(board)
             if " " not in board:
                 t += 1
                 print("\nTie")
-                print(p1 + " wins:%d " % (x) + '\n' + p2 + " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
+                print(p1 + " wins:%d " % (x) + '\n' + p2 + " wins:%d " %
+                      (o) + '\n' + "Tie:%d" % (t))
                 temp = p1
                 p1 = p2
                 p2 = temp
                 break
+
+
 game_on()
