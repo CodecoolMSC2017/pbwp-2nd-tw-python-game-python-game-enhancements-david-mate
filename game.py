@@ -96,7 +96,16 @@ def choose_name():
             print('\n' + ply1 + ' goes first!')
     print('\n' + ply1 + '  vs  ' + ply2)
     return [ply1, ply2]
-
+def choose_nameai():
+    ply1 = None
+    ply2 = None
+    while ply1 == ply2:
+        ply1 = input("Your name: ")
+        ply2 = str("Pisti")
+        if ply1 == ply2:
+            print('Try different name!')
+    print('\n' + ply1 + '  vs  ' + ply2)
+    return [ply1, ply2]
 
 def game_on():
     header()
@@ -208,7 +217,7 @@ def game_on():
 
 def game_ai():
     header()
-    p1, p2 = choose_name()
+    p1,p2= choose_nameai()
     x = 0
     o = 0
     t = 0
@@ -227,7 +236,7 @@ def game_ai():
         while b < 1:
             a = 0
             while a < 1:
-                print("\nFirst player select a spot: ")
+                print("\n" + p1 + " select a spot: ")
                 first = getchar()
                 if first == "h":
                     help()
@@ -251,12 +260,6 @@ def game_ai():
                         xwin = True
                         print(p1 + " wins:%d " % (x) + '\n' + p2 +
                               " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
-                        temp = p1
-                        p1 = p2
-                        p2 = temp
-                        temp2 = x
-                        x = o
-                        o = temp2
                         break
                 else:
                     print("this spot is taken")
@@ -283,12 +286,6 @@ def game_ai():
                         print(p1 + " wins:%d " % (x) + '\n' + p2 +
                               " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
                         owin = True
-                        temp = p1
-                        p1 = p2
-                        p2 = temp
-                        temp2 = o
-                        o = x
-                        x = temp2
                         break
                 else:
                     continue
@@ -300,9 +297,6 @@ def game_ai():
                 print("\nTie")
                 print(p1 + " wins:%d " % (x) + '\n' + p2 + " wins:%d " %
                       (o) + '\n' + "Tie:%d" % (t))
-                temp = p1
-                p1 = p2
-                p2 = temp
                 break
 
 
