@@ -206,5 +206,108 @@ def game_on():
                 p2 = temp
                 break
 
+def game_ai():
+    header()
+    p1, p2 = choose_name()
+    x = 0
+    o = 0
+    t = 0
+    while True:
+        print('\nPress any key to start or "q" to quit or "h" for help: ')
+        board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+        ex = getchar()
+        if ex == "q":
+            break
+        if ex == "h":
+            help()
+            continue
+        owin = False
+        xwin = False
+        b = 0
+        while b < 1:
+            a = 0
+            while a < 1:
+                print("\nFirst player select a spot: ")
+                first = getchar()
+                if first == "h":
+                    help()
+                    continue
+                try:
+                    first = int(first)
 
-game_on()
+                except:
+                    print("thats not a number!")
+                    continue
+
+                if board[first - 1] != 'X' and board[first - 1] != 'O':
+                    board[first - 1] = 'X'
+                    a += 1
+                    show(board)
+                    if check_board(board, "X"):
+                        show(board)
+                        b += 1
+                        x += 1
+                        print("\nX wins")
+                        xwin = True
+                        print(p1 + " wins:%d " % (x) + '\n' + p2 +
+                              " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
+                        temp = p1
+                        p1 = p2
+                        p2 = temp
+                        temp2 = x
+                        x = o
+                        o = temp2
+                        break
+                else:
+                    print("this spot is taken")
+            if xwin == True:
+                break
+                show(board)
+            if " " not in board:
+                t += 1
+                print("\nTie")
+                print(p1 + " wins:%d " % (x) + '\n' + p2 + " wins:%d " %
+                      (o) + '\n' + "Tie:%d" % (t))
+                break
+            while a == 1:
+                move = random.randint(1,9)
+                if board[move - 1] != 'X' and board[move - 1] != 'O':
+                    board[move - 1] = 'O'
+                    a -= 1
+                    show(board)
+                    if check_board(board, "O"):
+                        show(board)
+                        b += 1
+                        o += 1
+                        print("\nO wins")
+                        print(p1 + " wins:%d " % (x) + '\n' + p2 +
+                              " wins:%d " % (o) + '\n' + "Tie:%d" % (t))
+                        owin = True
+                        temp = p1
+                        p1 = p2
+                        p2 = temp
+                        temp2 = o
+                        o = x
+                        x = temp2
+                        break
+                else:
+                    continue
+            if owin == True:
+                break
+                show(board)
+            if " " not in board:
+                t += 1
+                print("\nTie")
+                print(p1 + " wins:%d " % (x) + '\n' + p2 + " wins:%d " %
+                      (o) + '\n' + "Tie:%d" % (t))
+                temp = p1
+                p1 = p2
+                p2 = temp
+                break
+
+
+k = input("player or ai: ")
+if k == "player":
+    game_on()
+else:
+    game_ai()
