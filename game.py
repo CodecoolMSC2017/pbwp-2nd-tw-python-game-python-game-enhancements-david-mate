@@ -89,7 +89,7 @@ def choose_name():
     return [ply1, ply2]
 
 
-def block_cond(board,s):
+def block_cond(board, s):
     for i in range(0, 9, 3):
         if board[i] == s and board[i + 1] == s and board[i + 2] == ' ':
             return i + 2
@@ -118,6 +118,7 @@ def block_cond(board,s):
         return 1
     return -1
 
+
 def choose_nameai():
     ply1 = None
     ply2 = None
@@ -129,7 +130,8 @@ def choose_nameai():
     print('\n' + ply1 + '  vs  ' + ply2)
     return [ply1, ply2]
 
-def playermove(board):
+
+def first_playermove(board):
     while True:
         print("Please select a spot")
         choice = getchar()
@@ -142,29 +144,46 @@ def playermove(board):
             board[choice - 1] = 'X'
             return False
         else:
-            print("this spot is taken") 
+            print("this spot is taken")
         show(board)
-       
-    
+
+
+def second_playermove(board):
+    while True:
+        print("Please select a spot")
+        choice = getchar()
+        try:
+            choice = int(choice)
+        except:
+            print("thats not a number")
+            continue
+        if board[choice - 1] != 'X' and board[choice - 1] != 'O':
+            board[choice - 1] = 'O'
+            return False
+        else:
+            print("this spot is taken")
+        show(board)
+
+
 def gameai(board):
-    
+
     if board[4] == " ":
         board[4] = 'O'
         return 'O'
-    ai_win = block_cond(board,"O")
-    ai_move = block_cond(board,"X")
-    
-    if ai_win !=-1:
+    ai_win = block_cond(board, "O")
+    ai_move = block_cond(board, "X")
+
+    if ai_win != -1:
         board[ai_win] = "O"
         return
-    elif ai_move != -1:    
+    elif ai_move != -1:
         board[ai_move] = "O"
         return
-        
+
     else:
         while True:
-            move = random.randint(0,8)
-            if board[move] != 'X' and board [move] != 'O':
+            move = random.randint(0, 8)
+            if board[move] != 'X' and board[move] != 'O':
                 board[move] = 'O'
                 return False
             else:
@@ -192,39 +211,25 @@ def game_pvp():
         while roundend < 1:
             nextplayer = 0
             while nextplayer < 1:
-                print("\nFirst player select a spot: ")
-                first = getchar()
-                if first == "h":
-                    help()
-                    continue
-                try:
-                    first = int(first)
-
-                except:
-                    print("thats not a number!")
-                    continue
-
-                if board[first - 1] != 'X' and board[first - 1] != 'O':
-                    board[first - 1] = 'X'
-                    nextplayer += 1
+                show(board)
+                first_playermove(board)
+                show(board)
+                nextplayer += 1
+                if check_board(board, "X"):
                     show(board)
-                    if check_board(board, "X"):
-                        show(board)
-                        roundend += 1
-                        xwinner += 1
-                        print("\nX wins")
-                        xwin = True
-                        print(p1 + " wins:%d " % (xwinner) + '\n' + p2 +
-                              " wins:%d " % (owinner) + '\n' + "Tie:%d" % (tie))
-                        temp = p1
-                        p1 = p2
-                        p2 = temp
-                        temp2 = xwinner
-                        xwinner = owinner
-                        owinner = temp2
-                        break
-                else:
-                    print("this spot is taken")
+                    roundend += 1
+                    xwinner += 1
+                    print("\nX wins")
+                    print(p1 + " wins:%d " % (xwinner) + '\n' + p2 +
+                          " wins:%d " % (owinner) + '\n' + "Tie:%d" % (tie))
+                    xwin = True
+                    temp = p1
+                    p1 = p2
+                    p2 = temp
+                    temp2 = xwinner
+                    xwinner = owinner
+                    owinner = temp2
+                    break
             if xwin == True:
                 break
                 show(board)
@@ -235,37 +240,25 @@ def game_pvp():
                       (owinner) + '\n' + "Tie:%d" % (tie))
                 break
             while nextplayer == 1:
-                print("\nSecond player select a spot: ")
-                second = getchar()
-                if second == "h":
-                    help()
-                    continue
-                try:
-                    second = int(second)
-                except:
-                    print("thats not a number!")
-                    continue
-                if board[second - 1] != 'X' and board[second - 1] != 'O':
-                    board[second - 1] = 'O'
-                    nextplayer -= 1
+                show(board)
+                second_playermove(board)
+                show(board)
+                nextplayer -= 1
+                if check_board(board, "O"):
                     show(board)
-                    if check_board(board, "O"):
-                        show(board)
-                        roundend += 1
-                        owinner += 1
-                        print("\nO wins")
-                        print(p1 + " wins:%d " % (xwinner) + '\n' + p2 +
-                              " wins:%d " % (owinner) + '\n' + "Tie:%d" % (tie))
-                        owin = True
-                        temp = p1
-                        p1 = p2
-                        p2 = temp
-                        temp2 = owinner
-                        owinner = xwinner
-                        xwinner = temp2
-                        break
-                else:
-                    print("this spot is taken!")
+                    roundend += 1
+                    owinner += 1
+                    print("\nO wins")
+                    print(p1 + " wins:%d " % (xwinner) + '\n' + p2 +
+                          " wins:%d " % (owinner) + '\n' + "Tie:%d" % (tie))
+                    owin = True
+                    temp = p1
+                    p1 = p2
+                    p2 = temp
+                    temp2 = owinner
+                    owinner = xwinner
+                    xwinner = temp2
+                    break
             if owin == True:
                 break
                 show(board)
@@ -277,8 +270,9 @@ def game_pvp():
                 temp = p1
                 p1 = p2
                 p2 = temp
-                break       
-                
+                break
+
+
 def game_comp():
     p1, p2 = choose_nameai()
     xwinner = 0
@@ -297,42 +291,46 @@ def game_comp():
         xwin = False
         while True:
             show(board)
-            playermove(board)
+            first_playermove(board)
             if check_board(board, "X"):
                 show(board)
                 xwinner += 1
                 print(p1 + " wins:%d " % (xwinner) + '\n' + p2 + " wins:%d " %
-                          (owinner) + '\n' + "Tie:%d" % (tie))
+                      (owinner) + '\n' + "Tie:%d" % (tie))
                 xwin = True
                 break
             elif " " not in board:
                 tie += 1
                 print("\nTie")
                 print(p1 + " wins:%d " % (xwinner) + '\n' + p2 + " wins:%d " %
-                          (owinner) + '\n' + "Tie:%d" % (tie))
+                      (owinner) + '\n' + "Tie:%d" % (tie))
                 show(board)
-                break    
+                break
             show(board)
             gameai(board)
             if check_board(board, "O"):
                 show(board)
                 owinner += 1
                 print(p1 + " wins:%d " % (xwinner) + '\n' + p2 + " wins:%d " %
-                          (owinner) + '\n' + "Tie:%d" % (tie))
-                owin = True          
+                      (owinner) + '\n' + "Tie:%d" % (tie))
+                owin = True
                 break
             if " " not in board:
                 tie += 1
                 print("\nTie")
                 print(p1 + " wins:%d " % (xwinner) + '\n' + p2 + " wins:%d " %
-                          (owinner) + '\n' + "Tie:%d" % (tie))
+                      (owinner) + '\n' + "Tie:%d" % (tie))
                 show(board)
                 break
+
 
 header()
 while True:
     k = input("player or ai: ")
     if k == "player":
         game_pvp()
-    else:
+    elif k == "ai":
         game_comp()
+    else:
+        print("Please make sure you type the correct word!")
+        continue
