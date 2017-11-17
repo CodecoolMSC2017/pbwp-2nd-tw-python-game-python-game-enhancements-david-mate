@@ -183,7 +183,8 @@ def gameai(board):
 
     else:
         while True:
-            move = random.randint(0, 8)
+            corner_moves=[0,2,6,8]
+            move = random.choice(range(len(corner_moves)))
             if board[move] != 'X' and board[move] != 'O':
                 board[move] = 'O'
                 return False
